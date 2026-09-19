@@ -25,22 +25,22 @@ type PizzaProviderProps = {
     children: ReactNode
 }
 
+export async function fetchPizzas(): Promise<Pizza[]> {
+    try {
+        const res = await axios.get('http://127.0.0.1:8000/api/pizzas')
+        return Array.isArray(res.data.data) ? res.data.data as Pizza[] : []
+    } catch (err) {
+        console.error(err)
+        return []
+    }
+}
+
 const PizzaContext = createContext<null | Context>(null)
 
 export default function PizzaProvider({ children }: PizzaProviderProps) {
     const [pizzas, setPizzas] = useState<Pizza[]>([])
 
     const [pizzaErrors, setPizzaErrors] = useState<PizzaErrors>({})
-
-    async function fetchPizzas(): Promise<Pizza[]> {
-        try {
-            const res = await axios.get('http://127.0.0.1:8000/api/pizzas')
-            return Array.isArray(res.data.data) ? res.data.data as Pizza[] : []
-        } catch (err) {
-            console.error(err)
-            return []
-        }
-    }
 
     useEffect(() => {
         async function loadPizzas() {

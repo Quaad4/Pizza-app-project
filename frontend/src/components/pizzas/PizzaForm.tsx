@@ -1,10 +1,10 @@
 import { useEffect, useState, type SubmitEvent } from "react";
-import Button from "./Button";
-import { usePizzas, type Pizza } from "../context/PizzaProvider";
+import Button from "../Button";
+import { usePizzas, type Pizza } from "../../context/PizzaProvider";
 import { useParams } from "react-router";
 
 type PizzaFormProps = {
-    edit: boolean
+    edit?: boolean
 }
 
 export default function PizzaForm({ edit = false }: PizzaFormProps) {

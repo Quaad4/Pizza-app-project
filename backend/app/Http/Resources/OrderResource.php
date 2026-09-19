@@ -18,6 +18,7 @@ class OrderResource extends JsonResource
             'id' => $this->id,
             'status' => $this->status,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+            'order_lines' => $this->orderLines
         ];
     }
 }

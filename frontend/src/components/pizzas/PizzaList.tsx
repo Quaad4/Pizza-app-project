@@ -1,4 +1,4 @@
-import { usePizzas } from "../context/PizzaProvider";
+import { usePizzas } from "../../context/PizzaProvider";
 import PizzaListItem from "./PizzaListItem";
 
 export default function ReviewList() {

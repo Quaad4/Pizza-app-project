@@ -1,6 +1,6 @@
-import { type Pizza } from "../context/PizzaProvider"
-import { useOrders } from "../context/OrderProvider"
-import Button from "./Button"
+import { type Pizza } from "../../context/PizzaProvider"
+import { useOrders } from "../../context/OrderProvider"
+import Button from "../Button"
 
 type PizzaListItemProps = {
     pizza: Pizza

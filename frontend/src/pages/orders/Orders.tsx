@@ -1,9 +1,9 @@
-import { usePizzas } from "../context/PizzaProvider"
-import PizzaRow from "../components/PizzaRow"
+import OrderRow from "../../components/orders/OrderRow"
+import { useOrders } from "../../context/OrderProvider"
 
-export default function Pizzas() {
+export default function Orders() {
 
-    const { pizzas } = usePizzas()
+    const { orders } = useOrders()
 
     return (
         <div
@@ -13,10 +13,9 @@ export default function Pizzas() {
 
                 <tbody className="divide-y divide-slate-100">
 
-                    {pizzas.map(pizza => {
-                        return <PizzaRow key={pizza.id} pizza={pizza}/>
-                    })}
-                    
+                    {orders.map(order => (
+                        <OrderRow order={order} key={order.id}/>
+                    ))}
                 </tbody>
             </table>
         </div>

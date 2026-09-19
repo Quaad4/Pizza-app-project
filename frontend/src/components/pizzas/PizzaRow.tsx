@@ -1,6 +1,6 @@
 import { Link } from "react-router"
-import { usePizzas, type Pizza } from "../context/PizzaProvider"
-import Button from "./Button"
+import { usePizzas, type Pizza } from "../../context/PizzaProvider"
+import Button from "../Button"
 
 type PizzaRowProps = {
     pizza: Pizza,

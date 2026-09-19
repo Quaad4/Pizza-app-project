@@ -1,4 +1,4 @@
-import PizzaForm from "../components/PizzaForm";
+import PizzaForm from "../../components/pizzas/PizzaForm";
 
 export default function CreatePizza() {
     return (

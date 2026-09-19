@@ -4,15 +4,31 @@ import { usePizzas, type Pizza } from "./PizzaProvider";
 
 type OrderStatus = 'pending' | 'processing' | 'completed' | 'cancelled' | 'refunded'
 
-export type Order = {
+export type OrderLine = {
     id: number,
+    order_id: number,
     pizza_id: number,
-    quantity: number,
-    status:  OrderStatus
+    quantity: number
 }
 
-export type OrderWithPizza = Order & {
-    pizza?: Pizza
+export type OrderLineWithPizza = {
+    id: number,
+    order_id: number,
+    pizza_id: number,
+    quantity: number,
+    pizza: Pizza
+}
+
+export type Order = {
+    id: number,
+    status: OrderStatus
+    order_lines: OrderLine[],
+}
+
+export type OrderWithPizza = {
+    id: number,
+    status: OrderStatus
+    order_lines: OrderLineWithPizza[],
 }
 
 type Context = {
@@ -37,7 +53,10 @@ export default function OrderProvider({ children }: OrderProviderProps) {
 
     const ordersWithPizza: OrderWithPizza[] = orders.map(order => ({
         ...order,
-        pizza: pizzaById.get(order.pizza_id),
+        order_lines: order.order_lines.flatMap(orderLine => {
+            const pizza = pizzaById.get(orderLine.pizza_id)
+            return pizza ? [{ ...orderLine, pizza }] : []
+        })
     }))
 
     async function fetchOrders(): Promise<Order[]> {
@@ -56,12 +75,12 @@ export default function OrderProvider({ children }: OrderProviderProps) {
             setOrders(fetchedOrders)
         }
 
-        loadOrders() 
+        loadOrders()
     }, [])
 
     async function addOrder(pizzaId: number, quantity: number = 1, status: OrderStatus = 'pending'): Promise<boolean> {
         try {
-            const res = await axios.post('http://127.0.0.1:8000/api/orders', {pizza_id: pizzaId, quantity, status})
+            const res = await axios.post('http://127.0.0.1:8000/api/orders', { pizza_id: pizzaId, quantity, status })
             setOrders(curr => [...curr, res.data])
             return true
         } catch (err) {

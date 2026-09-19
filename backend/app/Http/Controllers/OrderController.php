@@ -16,7 +16,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return OrderResource::collection(Order::all());
+        return OrderResource::collection(Order::with('orderLines')->get());
     }
 
     /**
